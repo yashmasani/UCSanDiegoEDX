@@ -10,7 +10,7 @@ const fs = require("fs")
 // Part 1
 function cycleCheck(){
   
-  let f = fileParser("case2.txt")
+  let f = fileParser("case3p3.txt")
   
   let N = f[0][0]
   let M = f[0][2]
@@ -53,7 +53,6 @@ function recursePath(data,entP,exitP){
 
 
 function visitedPaths(entP,exitP,v=[]){
- console.log(v)
  if (v.length>0){
   let x = 0
   let y = 0
@@ -224,10 +223,57 @@ function topOrder(lst,v,e,order=[]){
 }
 
 
+//_______Part 3 
+
+function colComps(){
+  
+  let f = fileParser("case3p1.txt")
+  let numList = []
+  
+  for (elem of f){
+    let head = elem.split(" ")
+    numList.push([head[0],head[1]])
+  }
+  
+  let N = numList[0][0]
+  let M = numList[0][1]
+  
+  numList.shift()
+
+  return recurseComps(numList)
 
 
+}
 
 
+function recurseComps(lst,cc=[]){
+  //base case
+  if (lst.length == 0){
+    return cc
+  }else{
+      let isCyclic = recursePath(lst,[],[]) ;
+    if(isCyclic == 1){
+        const x = lst.length
+        let i =0 ;
+        while (i<x){
+          let lst_copy = [...lst]
+          let removed = lst_copy.splice(i,1)
+          isCyclic = recursePath(lst,[],[])
+          if (isCyclic == 1){
+            let arr = []
+            arr.push(removed[0])
+            cc.push(arr)
+            lst.splice(i,1)
+          }
+          i+=1
+        }
+        cc.push(lst)
+        console.log(cc)
+        return cc
+    }
+  return cc
+  }
+}
 
 
 
@@ -252,5 +298,5 @@ function fileParser(fileName){
 
 //visitedPaths(['1','4'],['2','1'])
 //cycleCheck()
-topology()
-
+//topology()
+colComps()
