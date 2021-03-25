@@ -37,16 +37,16 @@ function recursePath(data,entP,exitP){
     exitP.push(data[i][0])
     j = visitedPaths(entP, exitP)
     if (j == 1){
-      console.log(1)
+     // console.log(1)
       return  1;
     }
    i+=1
   }
   if (j == 1){
-    console.log(1)
+   // console.log(1)
     return 1;
   }else{
-    console.log(0)
+   // console.log(0)
     return 0;
   }
 }
@@ -239,8 +239,9 @@ function colComps(){
   let M = numList[0][1]
   
   numList.shift()
-
-  return recurseComps(numList)
+  
+   console.log ((recurseComps(numList)).length)
+   return (recurseComps(numList)).length
 
 
 }
@@ -268,8 +269,16 @@ function recurseComps(lst,cc=[]){
           i+=1
         }
         cc.push(lst)
-        console.log(cc)
         return cc
+    }else{
+      
+      for (elem of lst){
+        if (!(cc.find(c => c.includes(elem[0])))){
+          cc.push(elem[0])
+        }else if (!(cc.find(c => c.includes(elem[1])))){
+          cc.push(elem[1])
+        }
+      }
     }
   return cc
   }
