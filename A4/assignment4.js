@@ -221,9 +221,10 @@ function optimal(){
   const data = fileparser("case3p1.txt")
   
   let a =  data.shift()
-  let output = [0,0]
+  let output = [0]
   output.length = parseInt(a[0]) + 1
   let u = data.pop()
+  output[u]=0
   const numList = []
   for (const d of data ){
     if (d.length > 1){
@@ -235,7 +236,7 @@ function optimal(){
   
   let i = 0
   while(i<o.length){
-    if(!o[i]){
+    if(typeof o[i] == "undefined"){
       o[i]= "*"
     }
   i++
@@ -281,8 +282,8 @@ function recurseOptimum(data,u,path=[],dist=[],output=[]){
         //pass
       }else if(check){
         output[data[index][1]] = "-"
-        
         const clonePath = [...path]
+        path.push(data[index][1])  
         output = recurseOptimum(data,u,path,dist,output)
         path = clonePath
       }else if(output[path[p] == "*"]){
